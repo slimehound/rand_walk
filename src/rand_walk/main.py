@@ -1,23 +1,13 @@
-import random
 import numpy as np
-import matplotlib.pyplot as plt
-import point
+import point as pt
 
-'''
-class Point:
-    r = 1
-    theta = random.randrange(0, 20 * np.pi, 1) / 10
-    phi = random.randrange(0, 10 * np.pi, 1) / 10
+np.seterr(all='raise')
 
-    x = r * np.sin(theta) * np.cos(phi)
-    y = r * np.sin(theta) * np.sin(phi)
-    z = r * np.cos(theta)
-'''
+thing = pt.Point.cartesian(1.0, 1.0, 1.0)
+print(str(thing.r) + "\n" + str(thing.theta) + "\n" + str(thing.phi))
 
-f = point.CartesianPoint(1, 1, 1)
-s = point.SphericalPoint(2, 0, 0)
-t = f.add_to(s)
+other = pt.Point.spherical(1.0, np.pi, np.pi/4)
+print(str(other.x) + "\n" + str(other.y) + "\n" + str(other.z))
 
-print(t.x)
-print(t.y)
-print(t.z)
+new = thing.add(other)
+print(str(new.x) + "\n" + str(new.y) + "\n" + str(new.z))

@@ -2,34 +2,49 @@ import numpy as np
 
 
 class Point:
-    x = 0
-    y = 0
-    z = 0
-    r = 0
-    theta = 0
-    phi = 0
+    x = 0.0
+    y = 0.0
+    z = 0.0
+    r = 0.0
+    theta = 0.0
+    phi = 0.0
 
-    def add_to(self, incremental_point):
-        return CartesianPoint(self.x + incremental_point.x,
-                              self.y + incremental_point.y,
-                              self.z + incremental_point.z)
+    @staticmethod
+    def cartesian(x, y, z):
+        result = Point()
+        result.x = x
+        result.y = y
+        result.z = z
 
+        try:
+            result.r = np.sqrt(x ** 2 + y ** 2 + z ** 2)
+        except Exception:
+            pass
 
-class CartesianPoint(Point):
-    def __init__(self, x, y, z):
-        self.x = x
-        self.y = y
-        self.z = z
-        self.r = np.sqrt(x ^ 2 + y ^ 2 + z ^ 2)
-        self.theta = np.arctan(y / x)
-        self.phi = np.arccos(z / self.r)
+        try:
+            result.theta = np.arctan(y / x)
+        except Exception:
+            pass
 
+        try:
+            result.phi = np.arccos(z / result.r)
+        except Exception:
+            pass
 
-class SphericalPoint(Point):
-    def __init__(self, r, theta, phi):
-        self.r = r
-        self.theta = theta
-        self.phi = phi
-        self.x = r * np.sin(theta) * np.cos(phi)
-        self.y = r * np.sin(theta) * np.sin(phi)
-        self.z = r * np.cos(theta)
+        return result
+
+    @staticmethod
+    def spherical(r, theta, phi):
+        result = Point()
+        result.r = r
+        result.theta = theta
+        result.phi = phi
+        result.x = r * np.sin(theta) * np.cos(phi)
+        result.y = r * np.sin(theta) * np.sin(phi)
+        result.z = r * np.cos(theta)
+        return result
+
+    def add(self, inc):
+        return Point.cartesian(self.x + inc.x,
+                               self.y + inc.y,
+                               self.z + inc.z)
