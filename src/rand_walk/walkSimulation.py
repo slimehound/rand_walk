@@ -13,6 +13,6 @@ class Simulation:
             self.walks.append(curr)
 
         self.end_mean = np.mean([w.end_point.r for w in self.walks])
-        self.end_std = np.std([w.end_point.r for w in self.walks])
-        self.max_dis_mean = np.mean([w.furthest_point.r for w in self.walks])
-        self.max_dis_std = np.std([w.furthest_point.r for w in self.walks])
+        self.end_std = np.std([w.end_point.r for w in self.walks], ddof=1)
+        self.furthest_mean = np.mean([w.furthest_point.r for w in self.walks])
+        self.furthest_std = np.std([w.furthest_point.r for w in self.walks], ddof=1)

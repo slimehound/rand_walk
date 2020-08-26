@@ -6,12 +6,21 @@ np.seterr(all='raise')
 
 rn.seed(0)
 
-go = ws.Simulation(100, 100)
+end_means = []
 
-print(go.end_mean)
-print(go.end_std)
-print(go.max_dis_mean)
-print(go.max_dis_std)
+for i in range(10):
+    go = ws.Simulation(1000, 100)
+
+    gem = f"{go.end_mean:.4f}"
+    ges = f"{go.end_std:.4f}"
+    gfm = f"{go.furthest_mean:.4f}"
+    gfs = f"{go.furthest_std:.4f}"
+    print(f'end mean/std {gem} / {ges}   -   furthest mean/std {gfm} / {gfs}')
+
+    end_means.append(go.end_mean)
+
+seed_std = np.std(end_means, ddof=1)
+print(f'seed std: {seed_std:.4f}')
 
 '''
 amble = pw.ParticleWalk(100)
