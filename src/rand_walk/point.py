@@ -37,8 +37,8 @@ class Point:
     def spherical(r, theta, phi):
         result = Point()
         result.r = r
-        result.theta = theta
-        result.phi = phi
+        result.theta = theta        # 0 <= theta < pi
+        result.phi = phi        # 0 <= phi < 2pi
         result.x = r * np.sin(theta) * np.cos(phi)
         result.y = r * np.sin(theta) * np.sin(phi)
         result.z = r * np.cos(theta)
